@@ -1,13 +1,15 @@
 package qxdp.project.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import qxdp.project.dao.User;
 
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
-    User getByUid(Integer uid);
-    List<User> findByNameAndRole(String name, String role);
-    List<User> findByNameLike(String name);
+    User findUserByUid(Integer uid);
+    User deleteUserByUid(Integer uid);
+    List<User> findUserByNameAndRole(String name, String role);
+    List<User> findUserByNameLike(String name,Pageable pageable);
 
 }

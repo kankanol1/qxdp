@@ -1,5 +1,10 @@
 package qxdp.project.dao;
 
+import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,9 +15,12 @@ public class User {
     @Column(name = "uid")
     private Integer uid;
 
+    @NotEmpty(message = "名称不可为空")
     @Column(name = "name") //设置数据库字段名
-    private String name;
+    @Length(min=6,max=64)
+    private  String name;
 
+    @NotNull
     @Column(name = "role")
     private String role;
 
