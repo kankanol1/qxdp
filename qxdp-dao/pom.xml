@@ -6,11 +6,9 @@
         <groupId>qxdp.project</groupId>
         <artifactId>qxdp</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/><!-- lookup parent from repository -->
     </parent>
     <artifactId>qxdp-dao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
     <name>qxdp-dao</name>
     <description>dao</description>
 

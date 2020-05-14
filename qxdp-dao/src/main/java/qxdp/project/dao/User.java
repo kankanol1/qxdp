@@ -1,13 +1,14 @@
-package qxdp.project.userdao;
+package qxdp.project.dao;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name="sys_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)  //设置自动增长
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "uid")
+    private Integer uid;
 
     @Column(name = "name") //设置数据库字段名
     private String name;
@@ -15,12 +16,16 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    public Integer getId() {
-        return id;
+    @Column(name="date")
+    private Date date;
+
+
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -39,11 +44,20 @@ public class User {
         this.role = role;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public User() {
     }
 
-    public User(String name, String role) {
+    public User(String name, String role, Date date) {
         this.name = name;
         this.role = role;
+        this.date = date;
     }
 }
