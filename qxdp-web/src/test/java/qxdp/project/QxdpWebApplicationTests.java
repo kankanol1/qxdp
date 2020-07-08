@@ -15,11 +15,8 @@ class QxdpWebApplicationTests {
     }
 
     @Test
-    void jpatest(){
-
+    void jpatest() {
         UserServiceImpl userRepository;
-        User user = new  User("kankan","admin",new Date());
+        User user = new User("kankan", "admin", new Date(), "kankan");
     }
-
-
 }
