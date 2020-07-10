@@ -107,30 +107,6 @@ public class UserController {
        }
         return map;
     }
-    @ApiOperation(value = "单一保存", notes = "需要参数")
-    @ResponseBody
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ApiImplicitParams(
-            {@ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String"),
-                    @ApiImplicitParam(name = "role", value = "角色", required = true, dataType = "String"),
-                    @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
-            }
-    )
-//    private User saveOne(String name, String role,String password){
-    private Object create(String name, String role, String password) {
-       /* User user = new User(name, role, new Date(), password);
-        System.out.println(user.toString());
-        Map<String, Object> map = new LinkedHashMap<>();
-
-        User users = userService.saveOne(user);
-       if(users.getName()!=name){
-           map.put("status", "error");
-       }else{
-           map.put("status", "ok");
-           map.put("data", users);
-       }*/
-        return userService.createEmployee(name, role, password);
-    }
 
     @ApiOperation(value = "单一删除", notes = "需要参数")
     @ApiImplicitParam(name = "uid", value = "用户ID", required = true, dataType = "Int")
