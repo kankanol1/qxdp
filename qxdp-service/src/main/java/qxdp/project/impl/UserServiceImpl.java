@@ -8,6 +8,10 @@ import qxdp.project.dao.User;
 import qxdp.project.repository.UserRepository;
 import qxdp.project.service.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,6 +50,23 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getUserByNameLike(String name, Pageable pageable){
         return userRepository.findUserByNameLike(name,pageable);
+    }
+
+    EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("UserService");
+    EntityManager em = emf.createEntityManager();
+
+
+    public User createEmployee(String name, String role, String password) {
+
+
+        User emp = new User();
+        emp.setName(name);
+        emp.setDate(new Date());
+        emp.setRole(role);
+        emp.setPassword(password);
+        em.persist(emp);
+        return emp;
     }
 
 }

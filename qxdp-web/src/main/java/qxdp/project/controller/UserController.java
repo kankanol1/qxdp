@@ -44,26 +44,36 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String"),
             @ApiImplicitParam(name = "role", value = "角色", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
     })
     @ApiOperation(value = "条件查询", notes = "通过名称和角色")
     @ResponseBody
     @RequestMapping(value = "/getByNameAndRole", method = RequestMethod.POST)
 //    public List<User> getByNameAndRole(String name, String role){
-    public Object getByNameAndRole(String name, String role) {
+    public Object getByNameAndRole(String name, String role,String password) {
 
-
-        /*status:1,
-                type:'admin',
-                currentAuthority:['admin',]*/
-
+        List<User> users = userService.getUserByNameAndRole(name, role);
         List<String> list = new LinkedList<>();
         Map<String, Object> map = new LinkedHashMap<>();
-        list.add("admin");
-        map.put("status", "ok");
-        map.put("currentAuthority", list);
-        map.put("data", userService.getUserByNameAndRole(name, role));
+
+        System.out.println(users.size());
+        System.out.println(password);
+        System.out.println(users.get(0).toString());
+
+        if(users.size()==1 & users.get(0).getPassword()==password){
+            System.out.println(users.get(0).getPassword());
+
+            System.out.println(users.get(0).toString());
+            list.add("admin");
+            map.put("status", "ok");
+            map.put("currentAuthority", list);
+            map.put("data", users);
+        }else{
+            map.put("status", "error");
+        }
         return map;
     }
+
 
     @ApiOperation(value = "匹配查询", notes = "通过名称")
     @ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String")
@@ -87,10 +97,39 @@ public class UserController {
         User user = new User(name, role, new Date(), password);
         System.out.println(user.toString());
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("status", "ok");
-        map.put("data", userService.saveOne(user));
-//        return userService.saveOne(user);
+
+        User users = userService.saveOne(user);
+       if(users.getName()!=name){
+           map.put("status", "error");
+       }else{
+           map.put("status", "ok");
+           map.put("data", users);
+       }
         return map;
+    }
+    @ApiOperation(value = "单一保存", notes = "需要参数")
+    @ResponseBody
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ApiImplicitParams(
+            {@ApiImplicitParam(name = "name", value = "名称", required = true, dataType = "String"),
+                    @ApiImplicitParam(name = "role", value = "角色", required = true, dataType = "String"),
+                    @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
+            }
+    )
+//    private User saveOne(String name, String role,String password){
+    private Object create(String name, String role, String password) {
+       /* User user = new User(name, role, new Date(), password);
+        System.out.println(user.toString());
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        User users = userService.saveOne(user);
+       if(users.getName()!=name){
+           map.put("status", "error");
+       }else{
+           map.put("status", "ok");
+           map.put("data", users);
+       }*/
+        return userService.createEmployee(name, role, password);
     }
 
     @ApiOperation(value = "单一删除", notes = "需要参数")
